@@ -87,16 +87,23 @@
           position: static;
           width: 100%;
           height: auto;
+          padding-bottom: 0;
         }
         aside {
           height: auto;
         }
+        aside a {
+          margin-left: 0;
+        }
         canvas {
-          width: calc(100% + 6vw);
-          height: calc(var(--spacing) * 3);
+          width: 100vw;
+          height: calc(var(--spacing) * 6);
+          margin: calc(var(--spacing) * 2) 0 calc(var(--spacing) * 2)
+            calc(var(--spacing) * -1);
         }
         main {
           width: 100%;
+          padding-top: 0;
         }
       }
     </style>
@@ -149,32 +156,24 @@
     <script>
       const canvas = document.getElementById("canvas");
       const ctx = canvas.getContext("2d");
-
-      // Set canvas dimensions
-      canvas.width = window.innerWidth * 0.66;
+      canvas.width =
+        window.innerWidth > 767 ? window.innerWidth * 0.66 : window.innerWidth;
       canvas.height = window.innerHeight * 1.5;
-
-      // Initialize variables
-      const numLines = 50;
-      const lineWidth = 2.5;
-      // const lineSpacing = canvas.height / (numLines + 1);
+      const numLines = window.innerWidth > 767 ? 50 : 30;
+      const lineWidth = window.innerWidth > 767 ? 2.25 : 4;
       const lineSpacing = canvas.height / (numLines - 10);
       let frequency = 0.02;
       let amplitude = 175;
       let wavelength = 100;
-      let phase = 1.5;
-      let speed = 0.006;
+      let phase = 1.25;
+      let speed = 0.008;
       let xOffset = 0.5;
-
       function draw() {
-        // Clear the canvas
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        // Draw the squiggly lines
         for (let i = 0; i < numLines; i++) {
           ctx.beginPath();
           ctx.moveTo(0, (i + 1) * lineSpacing);
-          for (let x = 0; x < canvas.width; x += 10) {
+          for (let x = 0; x < canvas.width; x += 1) {
             const y =
               amplitude *
                 Math.sin(
@@ -190,15 +189,10 @@
           ctx.strokeStyle = `rgba(0, 0, 0, 0.9)`;
           ctx.stroke();
         }
-
-        // Update the variables
         phase += speed;
         xOffset += speed * 10;
-
-        // Call the function again to create an animation loop
         requestAnimationFrame(draw);
       }
-
       draw();
     </script>
   </body>
