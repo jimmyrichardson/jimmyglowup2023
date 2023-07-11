@@ -12,7 +12,8 @@
     <style type="text/css">
       :root {
         --yellow: #ffca36;
-        --black: rgba(0, 0, 0, 0.9);
+        --black: rgba(10, 0, 0, 0.9);
+        --white: rgba(250, 250, 250, 0.9);
         --spacing: 6vw;
       }
       * {
@@ -28,6 +29,19 @@
         font-smooth: always;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
+      }
+      ::selection {
+        background-color: var(--black);
+        color: var(--yellow);
+      }
+      body.darkmode {
+        background-color: var(--black);
+        color: var(--white);
+        fill: var(--white);
+      }
+      body.darkmode ::selection {
+        background-color: var(--white);
+        color: var(--black);
       }
       div {
         position: fixed;
@@ -51,17 +65,6 @@
         display: flex;
         align-items: center;
       }
-      aside p:before {
-        content: "";
-        width: 1rem;
-        height: 1rem;
-        margin-right: 0.25rem;
-        background-color: var(--black);
-        border-radius: 99px;
-      }
-      aside svg {
-        margin-right: 2rem;
-      }
       aside a {
         margin-left: 4.5rem;
       }
@@ -72,6 +75,22 @@
         text-decoration: none;
         color: var(--black);
       }
+      .darkmode a {
+        color: var(--white);
+      }
+      button {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        -o-appearance: none;
+        appearance: none;
+        background: none;
+        border: none;
+        cursor: pointer;
+        margin-right: 2rem;
+      }
+      button:first-child {
+        margin-right: 0.5rem;
+      }
       main {
         font-size: clamp(32px, 3vw, 96px);
         width: 60vw;
@@ -81,6 +100,9 @@
       }
       p {
         margin-bottom: clamp(36px, 3vw, 82px);
+      }
+      main p:first-child {
+        margin-top: -1.25rem;
       }
       @media (max-width: 767px) {
         div {
@@ -108,19 +130,26 @@
       }
     </style>
   </head>
-  <body>
+  <body class="darkmode">
     <div>
       <aside>
         <p>
-          <svg width="16px" height="16px" viewBox="0 0 16 16">
-            <path
-              d="M4.8,1.6c-0.2,2.6,0.8,5.1,2.7,7c1.7,1.7,4,2.7,6.5,2.7c0.2,0,0.4,0,0.5,0c-0.3,0.6-0.7,1.2-1.2,1.7
+          <button type="button" id="darkmode">
+            <svg width="16px" height="16px" viewBox="0 0 16 16">
+              <circle cx="8" cy="8" r="8" />
+            </svg>
+          </button>
+          <button type="button" id="lightmode">
+            <svg width="16px" height="16px" viewBox="0 0 16 16">
+              <path
+                d="M4.8,1.6c-0.2,2.6,0.8,5.1,2.7,7c1.7,1.7,4,2.7,6.5,2.7c0.2,0,0.4,0,0.5,0c-0.3,0.6-0.7,1.2-1.2,1.7
 		c-1.3,1.3-3.1,2.1-5,2.1c-1.9,0-3.7-0.7-5-2.1c-2.8-2.8-2.8-7.3,0-10.1C3.6,2.3,4.2,1.9,4.8,1.6 M6,0C4.7,0.4,3.4,1.1,2.4,2.1
 		c-3.2,3.2-3.2,8.3,0,11.5C4,15.2,6.1,16,8.1,16c2.1,0,4.2-0.8,5.8-2.4c1-1,1.7-2.3,2.1-3.7c-0.7,0.2-1.4,0.3-2.1,0.3
 		c-2.1,0-4.2-0.8-5.7-2.4C6,5.7,5.3,2.7,6,0L6,0z"
-            />
-          </svg>
-          Open
+              />
+            </svg>
+          </button>
+          Available
         </p>
         <ul>
           <li>
@@ -139,8 +168,8 @@
     </div>
     <main>
       <p>
-        Jimmy Richardson is a<br />xcreative developerx<br />currently living in
-        Milwaukee, Wisconsin.
+        Jimmy Richardson is a<br />xcreative technologistx<br />currently living
+        in Milwaukee, Wisconsin.
       </p>
       <p>
         He has worked on FinTech apps for Fortune 100 wealth-management
@@ -154,6 +183,14 @@
       </p>
     </main>
     <script>
+      var btn = document.querySelectorAll("button");
+      btn.forEach((b) => {
+        b.addEventListener("click", () => {
+          b.id == "lightmode"
+            ? document.body.classList.remove("darkmode")
+            : document.body.classList.add("darkmode");
+        });
+      });
       const canvas = document.getElementById("canvas");
       const ctx = canvas.getContext("2d");
       canvas.width =
@@ -166,7 +203,7 @@
       let amplitude = 175;
       let wavelength = 100;
       let phase = 1.25;
-      let speed = 0.008;
+      let speed = 0.0025;
       let xOffset = 0.5;
       function draw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -186,7 +223,9 @@
             ctx.lineTo(x, y - 190);
           }
           ctx.lineWidth = lineWidth;
-          ctx.strokeStyle = `rgba(0, 0, 0, 0.9)`;
+          ctx.strokeStyle = document.body.classList.contains("darkmode")
+            ? "rgba(250, 250, 250, 0.2)"
+            : "rgba(0, 0, 0, 0.3)";
           ctx.stroke();
         }
         phase += speed;
