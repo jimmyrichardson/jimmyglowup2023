@@ -183,6 +183,9 @@
       </p>
     </main>
     <script>
+      if (window.location.protocol == "http:") {
+        window.location.href = window.location.href.replace("http:", "https:");
+      }
       var btn = document.querySelectorAll("button");
       btn.forEach((b) => {
         b.addEventListener("click", () => {
