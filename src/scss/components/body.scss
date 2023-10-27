@@ -1,0 +1,124 @@
+body {
+  background-color: $yellow;
+  color: $black;
+  font-family: "Deckard", sans-serif;
+  font-size: 16px;
+  font-smooth: always;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+
+  &.darkmode {
+    background-color: $black;
+    color: $white;
+    fill: $white;
+
+    ::selection {
+      background-color: $white;
+      color: $black;
+    }
+  }
+}
+
+.sun {
+  .darkmode & {
+    fill: transparent;
+    border: 1px solid $white;
+    border-radius: 50%;
+  }
+}
+
+.moon {
+  stroke: $black;
+  fill: transparent;
+
+  .darkmode & {
+    fill: $white;
+  }
+}
+
+.left {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 40vw;
+  height: 100vh;
+  padding: $spacing;
+
+  &__flex {
+    display: flex;
+  }
+}
+
+aside {
+  height: $spacing * 2;
+
+  p {
+    text-transform: uppercase;
+    letter-spacing: 0.175rem;
+    display: flex;
+    align-items: center;
+  }
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: $black;
+
+  .darkmode & {
+    color: $white;
+  }
+}
+
+button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-right: 2rem;
+
+  &:first-child {
+    margin-right: 0.5rem;
+  }
+}
+
+main {
+  font-size: clamp(32px, 3vw, 96px);
+  width: 60vw;
+  padding: $spacing;
+  padding-top: $spacing * 3;
+  margin-left: auto;
+
+  p {
+    margin-bottom: clamp(36px, 3vw, 82px);
+    &:first-child {
+      margin-top: -1.25rem;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .left {
+    position: static;
+    width: 100%;
+    height: auto;
+    padding-bottom: 0;
+  }
+  aside {
+    height: auto;
+    a {
+      margin-left: 0;
+    }
+  }
+  main {
+    width: 100%;
+    padding-top: 50vw;
+  }
+}

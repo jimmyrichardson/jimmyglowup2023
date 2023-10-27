@@ -1,0 +1,15 @@
+$yellow: #ffea70;
+$black: rgba( 24,5,0,0.9);
+$white: rgba(250, 250, 250, 0.9);
+$spacing: 6vw;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+::selection {
+  background-color: $black;
+  color: $yellow;
+}

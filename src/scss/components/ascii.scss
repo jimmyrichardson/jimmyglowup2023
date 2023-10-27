@@ -1,0 +1,32 @@
+.ascii {
+  width: 47.666666vw;
+  display: flex;
+  color: $black;
+  font-size: 0.66vw;
+
+  pre {
+    font-family: 'Courier New', Courier, monospace;
+    width: 100%;
+  }
+
+  &__container {
+    pointer-events: none;
+    overflow: hidden;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+  
+  .darkmode & {
+    color: $white;
+  }
+
+  @media (max-width: 767px) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    font-size: 1.385vw;
+    opacity: 0.5;
+  }
+}
