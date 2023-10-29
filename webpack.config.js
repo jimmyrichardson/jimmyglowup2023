@@ -8,7 +8,7 @@ const config = {
   entry: "./src/index.js",
   output: {
     path: path.resolve(__dirname, "assets"),
-    publicPath: "/dev/",
+    publicPath: "/assets/",
     filename: "main.js",
     clean: true,
   },
